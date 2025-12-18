@@ -339,7 +339,7 @@ func (p *GitLabPlugin) uploadAsset(ctx context.Context, client *gitlab.Client, p
 	if err != nil {
 		return nil, fmt.Errorf("failed to open asset %s: %w", assetPath, err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	// Get file info
 	fileInfo, err := file.Stat()

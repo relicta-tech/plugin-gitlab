@@ -90,8 +90,8 @@ func TestValidate(t *testing.T) {
 	origToken := os.Getenv("GITLAB_TOKEN")
 	origGLToken := os.Getenv("GL_TOKEN")
 	t.Cleanup(func() {
-		os.Setenv("GITLAB_TOKEN", origToken)
-		os.Setenv("GL_TOKEN", origGLToken)
+		_ = os.Setenv("GITLAB_TOKEN", origToken)
+		_ = os.Setenv("GL_TOKEN", origGLToken)
 	})
 
 	tests := []struct {
@@ -308,15 +308,15 @@ func TestValidate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Clear environment
-			os.Unsetenv("GITLAB_TOKEN")
-			os.Unsetenv("GL_TOKEN")
+			_ = os.Unsetenv("GITLAB_TOKEN")
+			_ = os.Unsetenv("GL_TOKEN")
 
 			// Set test environment
 			if tt.envToken != "" {
-				os.Setenv("GITLAB_TOKEN", tt.envToken)
+				_ = os.Setenv("GITLAB_TOKEN", tt.envToken)
 			}
 			if tt.envGLToken != "" {
-				os.Setenv("GL_TOKEN", tt.envGLToken)
+				_ = os.Setenv("GL_TOKEN", tt.envGLToken)
 			}
 
 			resp, err := p.Validate(ctx, tt.config)
@@ -691,11 +691,11 @@ func TestExecute(t *testing.T) {
 	origToken := os.Getenv("GITLAB_TOKEN")
 	origGLToken := os.Getenv("GL_TOKEN")
 	t.Cleanup(func() {
-		os.Setenv("GITLAB_TOKEN", origToken)
-		os.Setenv("GL_TOKEN", origGLToken)
+		_ = os.Setenv("GITLAB_TOKEN", origToken)
+		_ = os.Setenv("GL_TOKEN", origGLToken)
 	})
-	os.Unsetenv("GITLAB_TOKEN")
-	os.Unsetenv("GL_TOKEN")
+	_ = os.Unsetenv("GITLAB_TOKEN")
+	_ = os.Unsetenv("GL_TOKEN")
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -751,7 +751,7 @@ func TestValidateAssetPath(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	tests := []struct {
@@ -827,8 +827,8 @@ func TestGetClient(t *testing.T) {
 	origToken := os.Getenv("GITLAB_TOKEN")
 	origGLToken := os.Getenv("GL_TOKEN")
 	t.Cleanup(func() {
-		os.Setenv("GITLAB_TOKEN", origToken)
-		os.Setenv("GL_TOKEN", origGLToken)
+		_ = os.Setenv("GITLAB_TOKEN", origToken)
+		_ = os.Setenv("GL_TOKEN", origGLToken)
 	})
 
 	tests := []struct {
@@ -888,15 +888,15 @@ func TestGetClient(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Clear environment
-			os.Unsetenv("GITLAB_TOKEN")
-			os.Unsetenv("GL_TOKEN")
+			_ = os.Unsetenv("GITLAB_TOKEN")
+			_ = os.Unsetenv("GL_TOKEN")
 
 			// Set test environment
 			if tt.envToken != "" {
-				os.Setenv("GITLAB_TOKEN", tt.envToken)
+				_ = os.Setenv("GITLAB_TOKEN", tt.envToken)
 			}
 			if tt.envGLToken != "" {
-				os.Setenv("GL_TOKEN", tt.envGLToken)
+				_ = os.Setenv("GL_TOKEN", tt.envGLToken)
 			}
 
 			client, err := p.getClient(tt.cfg)
@@ -1006,7 +1006,7 @@ func TestUploadAssetValidation(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	p := &GitLabPlugin{}
@@ -1147,7 +1147,7 @@ func TestValidateAssetPathWithSymlink(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	// Symlinks within the working directory should resolve successfully
@@ -1183,7 +1183,7 @@ func TestValidateAssetPathAbsolutePath(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	// Absolute path within working directory should work
@@ -1213,11 +1213,11 @@ func TestCreateReleaseNoToken(t *testing.T) {
 	origToken := os.Getenv("GITLAB_TOKEN")
 	origGLToken := os.Getenv("GL_TOKEN")
 	t.Cleanup(func() {
-		os.Setenv("GITLAB_TOKEN", origToken)
-		os.Setenv("GL_TOKEN", origGLToken)
+		_ = os.Setenv("GITLAB_TOKEN", origToken)
+		_ = os.Setenv("GL_TOKEN", origGLToken)
 	})
-	os.Unsetenv("GITLAB_TOKEN")
-	os.Unsetenv("GL_TOKEN")
+	_ = os.Unsetenv("GITLAB_TOKEN")
+	_ = os.Unsetenv("GL_TOKEN")
 
 	cfg := &Config{ProjectID: "group/project"} // No token
 	releaseCtx := plugin.ReleaseContext{
@@ -1571,11 +1571,11 @@ func TestValidateEmptyConfig(t *testing.T) {
 	origToken := os.Getenv("GITLAB_TOKEN")
 	origGLToken := os.Getenv("GL_TOKEN")
 	t.Cleanup(func() {
-		os.Setenv("GITLAB_TOKEN", origToken)
-		os.Setenv("GL_TOKEN", origGLToken)
+		_ = os.Setenv("GITLAB_TOKEN", origToken)
+		_ = os.Setenv("GL_TOKEN", origGLToken)
 	})
-	os.Unsetenv("GITLAB_TOKEN")
-	os.Unsetenv("GL_TOKEN")
+	_ = os.Unsetenv("GITLAB_TOKEN")
+	_ = os.Unsetenv("GL_TOKEN")
 
 	resp, err := p.Validate(ctx, map[string]any{})
 	if err != nil {
@@ -2027,7 +2027,7 @@ func TestUploadAssetFileOperations(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	p := &GitLabPlugin{}
@@ -2118,7 +2118,7 @@ func TestValidateAssetPathEdgeCases(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	tests := []struct {
@@ -2588,7 +2588,7 @@ func TestCreateReleaseWithMockedAPI(t *testing.T) {
 		if contains(r.URL.Path, "/releases") && r.Method == "POST" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)
-			json.NewEncoder(w).Encode(gitlab.Release{
+			_ = json.NewEncoder(w).Encode(gitlab.Release{
 				TagName: "v1.0.0",
 				Name:    "Release 1.0.0",
 			})
@@ -2686,7 +2686,7 @@ func TestCreateReleaseWithMockedAPI(t *testing.T) {
 			},
 			serverHandler: func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte(`{"error": "Internal Server Error"}`))
+				_, _ = w.Write([]byte(`{"error": "Internal Server Error"}`))
 			},
 			wantSuccess:  false,
 			wantErrorMsg: "failed to create release",
@@ -2755,7 +2755,7 @@ func TestCreateReleaseWithAssetsAndMockedAPI(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	p := &GitLabPlugin{}
@@ -2767,7 +2767,7 @@ func TestCreateReleaseWithAssetsAndMockedAPI(t *testing.T) {
 		if contains(r.URL.Path, "/releases") && r.Method == "POST" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)
-			json.NewEncoder(w).Encode(gitlab.Release{
+			_ = json.NewEncoder(w).Encode(gitlab.Release{
 				TagName: "v1.0.0",
 				Name:    "Release 1.0.0",
 			})
@@ -2777,7 +2777,7 @@ func TestCreateReleaseWithAssetsAndMockedAPI(t *testing.T) {
 		if contains(r.URL.Path, "/packages/generic/") {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)
-			json.NewEncoder(w).Encode(map[string]any{
+			_ = json.NewEncoder(w).Encode(map[string]any{
 				"message": "201 Created",
 			})
 			return
@@ -2790,7 +2790,7 @@ func TestCreateReleaseWithAssetsAndMockedAPI(t *testing.T) {
 		if contains(r.URL.Path, "/releases") && r.Method == "POST" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)
-			json.NewEncoder(w).Encode(gitlab.Release{
+			_ = json.NewEncoder(w).Encode(gitlab.Release{
 				TagName: "v1.0.0",
 				Name:    "Release 1.0.0",
 			})
@@ -2832,7 +2832,7 @@ func TestCreateReleaseWithAssetsAndMockedAPI(t *testing.T) {
 				if contains(r.URL.Path, "/releases") && r.Method == "POST" {
 					w.Header().Set("Content-Type", "application/json")
 					w.WriteHeader(http.StatusCreated)
-					json.NewEncoder(w).Encode(gitlab.Release{
+					_ = json.NewEncoder(w).Encode(gitlab.Release{
 						TagName: "v1.0.0",
 						Name:    "Release 1.0.0",
 					})
@@ -2899,7 +2899,7 @@ func TestUploadAssetWithMockedAPI(t *testing.T) {
 		t.Fatalf("failed to change to temp directory: %v", err)
 	}
 	t.Cleanup(func() {
-		os.Chdir(origDir)
+		_ = os.Chdir(origDir)
 	})
 
 	p := &GitLabPlugin{}
@@ -2919,7 +2919,7 @@ func TestUploadAssetWithMockedAPI(t *testing.T) {
 				if contains(r.URL.Path, "/packages/generic/") {
 					w.Header().Set("Content-Type", "application/json")
 					w.WriteHeader(http.StatusCreated)
-					json.NewEncoder(w).Encode(map[string]any{
+					_ = json.NewEncoder(w).Encode(map[string]any{
 						"message": "201 Created",
 					})
 					return
@@ -2996,7 +2996,7 @@ func TestCreateReleaseURLConstruction(t *testing.T) {
 		if contains(r.URL.Path, "/releases") && r.Method == "POST" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)
-			json.NewEncoder(w).Encode(gitlab.Release{
+			_ = json.NewEncoder(w).Encode(gitlab.Release{
 				TagName: "v1.0.0",
 				Name:    "Release 1.0.0",
 			})
