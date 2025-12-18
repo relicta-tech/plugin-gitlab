@@ -481,7 +481,7 @@ func TestParseConfig(t *testing.T) {
 			name: "skips invalid asset_links",
 			raw: map[string]any{
 				"asset_links": []any{
-					map[string]any{"name": "Only Name"}, // Missing URL
+					map[string]any{"name": "Only Name"},          // Missing URL
 					map[string]any{"url": "https://example.com"}, // Missing name
 					map[string]any{"name": "Valid", "url": "https://valid.com"},
 				},
@@ -514,8 +514,8 @@ func TestParseConfig(t *testing.T) {
 		{
 			name: "handles wrong types gracefully",
 			raw: map[string]any{
-				"base_url":   123, // Should be string
-				"project_id": true, // Should be string
+				"base_url":   123,            // Should be string
+				"project_id": true,           // Should be string
 				"milestones": "not-an-array", // Should be array
 			},
 			validate: func(t *testing.T, cfg *Config) {
@@ -561,10 +561,10 @@ func TestExecute(t *testing.T) {
 	}
 
 	tests := []struct {
-		name        string
-		req         plugin.ExecuteRequest
-		wantSuccess bool
-		wantMessage string
+		name         string
+		req          plugin.ExecuteRequest
+		wantSuccess  bool
+		wantMessage  string
 		checkOutputs func(t *testing.T, outputs map[string]any)
 	}{
 		{
@@ -926,10 +926,10 @@ func TestCreateReleaseDryRun(t *testing.T) {
 	ctx := context.Background()
 
 	tests := []struct {
-		name        string
-		cfg         *Config
-		releaseCtx  plugin.ReleaseContext
-		wantSuccess bool
+		name         string
+		cfg          *Config
+		releaseCtx   plugin.ReleaseContext
+		wantSuccess  bool
 		checkOutputs func(t *testing.T, outputs map[string]any)
 	}{
 		{
@@ -1271,10 +1271,10 @@ func TestCreateReleaseDescriptionFallback(t *testing.T) {
 	ctx := context.Background()
 
 	tests := []struct {
-		name          string
-		cfg           *Config
-		releaseCtx    plugin.ReleaseContext
-		checkMessage  string
+		name         string
+		cfg          *Config
+		releaseCtx   plugin.ReleaseContext
+		checkMessage string
 	}{
 		{
 			name: "uses release notes when available",
@@ -2186,10 +2186,10 @@ func TestCreateReleaseBaseURLHandling(t *testing.T) {
 	ctx := context.Background()
 
 	tests := []struct {
-		name       string
-		baseURL    string
-		projectID  string
-		tagName    string
+		name        string
+		baseURL     string
+		projectID   string
+		tagName     string
 		wantURLPart string
 	}{
 		{
@@ -2322,9 +2322,9 @@ func TestParseConfigRobustness(t *testing.T) {
 			name: "handles asset_links with partial data",
 			raw: map[string]any{
 				"asset_links": []any{
-					map[string]any{"name": "NameOnly"},                   // Missing URL
-					map[string]any{"url": "https://urlonly.com"},        // Missing name
-					map[string]any{},                                     // Empty map
+					map[string]any{"name": "NameOnly"},           // Missing URL
+					map[string]any{"url": "https://urlonly.com"}, // Missing name
+					map[string]any{},                             // Empty map
 					map[string]any{"name": "Complete", "url": "https://complete.com"},
 				},
 			},
@@ -2417,7 +2417,7 @@ func TestValidateWithInvalidAssetLinkStructures(t *testing.T) {
 				"token": "glpat-test",
 				"asset_links": []any{
 					map[string]any{"url": "https://example.com"},                                           // Missing name
-					map[string]any{"name": "Test"},                                                          // Missing url
+					map[string]any{"name": "Test"},                                                         // Missing url
 					map[string]any{"name": "Invalid Type", "url": "https://e.com", "link_type": "invalid"}, // Invalid link_type
 				},
 			},
@@ -2598,13 +2598,13 @@ func TestCreateReleaseWithMockedAPI(t *testing.T) {
 	}
 
 	tests := []struct {
-		name           string
-		cfg            *Config
-		releaseCtx     plugin.ReleaseContext
-		serverHandler  http.HandlerFunc
-		wantSuccess    bool
-		wantErrorMsg   string
-		wantMessage    string
+		name          string
+		cfg           *Config
+		releaseCtx    plugin.ReleaseContext
+		serverHandler http.HandlerFunc
+		wantSuccess   bool
+		wantErrorMsg  string
+		wantMessage   string
 	}{
 		{
 			name: "successful release creation",
@@ -2805,11 +2805,11 @@ func TestCreateReleaseWithAssetsAndMockedAPI(t *testing.T) {
 	}
 
 	tests := []struct {
-		name           string
-		assets         []string
-		serverHandler  http.HandlerFunc
-		wantSuccess    bool
-		wantArtifacts  int
+		name          string
+		assets        []string
+		serverHandler http.HandlerFunc
+		wantSuccess   bool
+		wantArtifacts int
 	}{
 		{
 			name:          "release with successful asset upload",
@@ -3006,9 +3006,9 @@ func TestCreateReleaseURLConstruction(t *testing.T) {
 	}
 
 	tests := []struct {
-		name         string
-		baseURL      string
-		wantURLPart  string
+		name        string
+		baseURL     string
+		wantURLPart string
 	}{
 		{
 			name:        "empty base URL uses gitlab.com",
