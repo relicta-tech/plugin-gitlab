@@ -50,7 +50,7 @@ jobs:
           go build -ldflags="-s -w" -o gitlab_${{ matrix.suffix }}${{ matrix.ext }} .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: gitlab_${{ matrix.suffix }}
           path: gitlab_${{ matrix.suffix }}${{ matrix.ext }}
